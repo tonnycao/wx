@@ -1,0 +1,13 @@
+{
+    "name": "xcrms/wx",
+    "description": "php wx backend api package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "caojian",
+            "email": "caojian@inesadt.com"
+        }
+    ],
+    "require": {}
+}
