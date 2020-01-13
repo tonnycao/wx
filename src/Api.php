@@ -90,6 +90,73 @@ class Api
             return false;
         }
     }
+    /**
+     * @todo curl post请求
+     * @param $xml
+     * @param $url
+     * @param int $second
+     * @param bool $useCert
+     * @param string $sslCertPath
+     * @param string $sslKeyPath
+     * @return bool|string
+     */
+    public static function postCurl($data, $url, $second = 2, $useCert = false, $sslCertPath='', $sslKeyPath='')
+    {
+        $json_data = json_encode($data);
+        if(isset(self::$logger))
+        {
+            self::$logger->debug($json_data);
+        }
+
+        $ch = curl_init();
+        $curlVersion = curl_version();
+        $ua = "WXPay/".self::VERSION." (".PHP_OS.") PHP/".PHP_VERSION." CURL/".$curlVersion['version'];
+        //设置超时
+        curl_setopt($ch, CURLOPT_TIMEOUT, $second);
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0);//严格校验
+        curl_setopt($ch,CURLOPT_USERAGENT, $ua);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+        if($useCert == true){
+            //设置证书
+            //使用证书：cert 与 key 分别属于两个.pem文件
+            //证书文件请放入服务器的非web目录下
+            curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
+            curl_setopt($ch,CURLOPT_SSLCERT, $sslCertPath);
+            curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
+            curl_setopt($ch,CURLOPT_SSLKEY, $sslKeyPath);
+        }
+        //post提交方式
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+        //运行curl
+        $data = curl_exec($ch);
+
+        //返回结果
+        if($data){
+            if(isset(self::$logger))
+            {
+                self::$logger->debug(json_encode($data));
+            }
+            curl_close($ch);
+            return $data;
+        } else {
+            $error = curl_errno($ch);
+            curl_close($ch);
+            $msg = [
+                'errorno'=>$error,
+                'errormsg'=>CurleError::getMsg($error)
+            ];
+            if(isset(self::$logger))
+            {
+                self::$logger->error(json_encode($msg));
+            }
+            return false;
+        }
+    }
 
     /**
      * @todo curl post请求
