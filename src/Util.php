@@ -9,6 +9,22 @@ namespace Xcrms\Wx;
  */
 class Util
 {
+    public static function checkImageType($image)
+    {
+        $bits = array(
+            'JPEG' => "\xFF\xD8\xFF",
+            'GIF' => "GIF",
+            'PNG' => "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a",
+            'BMP' => 'BM',
+        );
+        foreach ($bits as $type => $bit) {
+            if (substr($image, 0, strlen($bit)) === $bit) {
+                return $type;
+            }
+        }
+        return 'UNKNOWN';
+    }
+
     /***
      * @todo 获取服务器IP
      * @return mixed
