@@ -6,6 +6,11 @@ namespace Xcrms\Wx\Miniprogram;
 
 use Xcrms\Wx\Api;
 
+/***
+ * @todo 基类
+ * Class MiniBase
+ * @package Xcrms\Wx\Miniprogram
+ */
 class MiniBase
 {
     public static function getAccessToken($appid,$appsecret)
