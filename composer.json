@@ -9,5 +9,12 @@
             "email": "caojian@inesadt.com"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "Xcrms\\Wx\\": "src"
+        }
+    },
+    "require": {
+        "psr/container": "^1.0"
+    }
 }

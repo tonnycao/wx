@@ -48,6 +48,23 @@ class Api
         return self::$logger;
     }
 
+    public static function uploadCurl($params, $url)
+    {
+        $header = array('Content-Type: multipart/form-data');
+        $ch = curl_init();//初始化curl
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 500);
+        curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+
+    }
     /***
      * @todo GET请求
      * @param $url
