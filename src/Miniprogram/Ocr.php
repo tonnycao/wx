@@ -9,6 +9,41 @@ use Xcrms\Wx\Api;
 class Ocr extends MiniBase
 {
 
+    public static function idCardByFile($token,$path)
+    {
+        $url =  "https://api.weixin.qq.com/cv/ocr/idcard?access_token=".$token;
+        $data = [
+            'img'=>new \CURLFile($path)
+        ];
+        $response = Api::uploadCurl($data, $url);
+        if(!$response){
+            return false;
+        }
+        $result = json_decode($response,true);
+        if($result['errcode'] == 0){
+            return $result;
+        }
+        return false;
+    }
+
+    public static function idCardByUrl($token,$img_url)
+    {
+        $url =  "https://api.weixin.qq.com/cv/ocr/idcard?img_url=".urlencode($img_url)."&access_token=".$token;
+        $data = [
+            'img_url'=>$img_url
+        ];
+        $response = Api::postCurl($data,$url);
+        if(!$response){
+            return false;
+        }
+
+        $result =  json_decode($response,true);
+
+        if($result['errcode'] == 0){
+            return $result;
+        }
+        return false;
+    }
     public static function driverLicenseByUrl($token,$img_url)
     {
         $url = "https://api.weixin.qq.com/cv/ocr/drivinglicense?access_token=".$token;

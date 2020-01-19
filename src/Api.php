@@ -48,6 +48,34 @@ class Api
         return self::$logger;
     }
 
+    /***
+     * @todo 下载
+     * @param $url
+     * @param $path
+     * @param int $timeout
+     * @return bool
+     */
+    public static function downloadCurl($url,$path,$timeout=5)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $content = curl_exec($ch);
+        curl_close($ch);
+        if(!$content){
+            return false;
+        }
+        file_put_contents($path, $content);
+        return true;
+    }
+
+    /***
+     * @todo 上传
+     * @param $params
+     * @param $url
+     * @return bool|string
+     */
     public static function uploadCurl($params, $url)
     {
         $header = array('Content-Type: multipart/form-data');
