@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xcrms\Wx\Miniprogram;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
-class Qrcode extends MiniBase
+class Qrcode extends Base
 {
     public static function create($token,$path,$width=430)
     {
@@ -15,7 +15,7 @@ class Qrcode extends MiniBase
             'path'=>$path,
             'width'=>$width
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -49,7 +49,7 @@ class Qrcode extends MiniBase
         {
             $data['is_hyaline'] = $options['is_hyaline'];
         }
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -86,7 +86,7 @@ class Qrcode extends MiniBase
         {
             $data['is_hyaline'] = $options['is_hyaline'];
         }
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }

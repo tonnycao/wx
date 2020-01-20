@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xcrms\Wx\Miniprogram;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
-class Ocr extends MiniBase
+class Ocr extends Base
 {
 
     public static function idCardByFile($token,$path)
@@ -15,7 +15,7 @@ class Ocr extends MiniBase
         $data = [
             'img'=>new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data, $url);
+        $response = Curl::uploadCurl($data, $url);
         if(!$response){
             return false;
         }
@@ -32,7 +32,7 @@ class Ocr extends MiniBase
         $data = [
             'img_url'=>$img_url
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -50,7 +50,7 @@ class Ocr extends MiniBase
         $data = [
             'img_url'=>$img_url
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -68,7 +68,7 @@ class Ocr extends MiniBase
         $data = [
             'img'=>new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data, $url);
+        $response = Curl::uploadCurl($data, $url);
         if(!$response){
             return false;
         }
@@ -85,7 +85,7 @@ class Ocr extends MiniBase
         $data = [
             'img'=> new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -105,7 +105,7 @@ class Ocr extends MiniBase
         $data = [
             'img_url'=>$img_url
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -124,7 +124,7 @@ class Ocr extends MiniBase
         $data = [
             'img_url'=>$img_url
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         if(!$response){
             return false;
         }
@@ -142,7 +142,7 @@ class Ocr extends MiniBase
         $data = [
             'img'=> new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
         if(!$response){
             return false;
         }

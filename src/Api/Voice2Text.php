@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xcrms\Wx\Mp;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
-class Voice2Text extends MpBase
+class Voice2Text extends Base
 {
     public static function uploadVoice($token,$voice_id,$path,$lang='zh_CN')
     {
@@ -14,7 +14,7 @@ class Voice2Text extends MpBase
         $param = [
             'file'=>new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($param,$url);
+        $response = Curl::uploadCurl($param,$url);
         if(!$response){
             return false;
         }
@@ -25,7 +25,7 @@ class Voice2Text extends MpBase
     {
         $url = "http://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=".$token."&voice_id=".$voice_id."&lang=".$lang;
         $param = [];
-        $response = Api::postCurl($param,$url);
+        $response = Curl::postCurl($param,$url);
         if(!$response){
             return false;
         }
@@ -36,7 +36,7 @@ class Voice2Text extends MpBase
     {
         $url = "http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=".$token."&lfrom=".$form."&lto=".$to;
         $param = $text;
-        $response = Api::postCurl($param,$url);
+        $response = Curl::postCurl($param,$url);
         if(!$response){
             return false;
         }

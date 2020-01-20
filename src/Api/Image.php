@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xcrms\Wx\Mp;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
-class Image extends MpBase
+class Image extends Base
 {
     /***
      * @todo 二维码识别
@@ -17,7 +17,7 @@ class Image extends MpBase
     public static function qrcodeWithUrl($token,$img_url)
     {
         $url = "https://api.weixin.qq.com/cv/img/qrcode?img_url=".urlencode($img_url)."&access_token=".$token;
-        $response = Api::getCurl($url);
+        $response = Curl::getCurl($url);
         if(!$response){
             return false;
         }
@@ -36,7 +36,7 @@ class Image extends MpBase
         $data = [
             'img'=>new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
 
         if(!$response){
             return false;
@@ -53,7 +53,7 @@ class Image extends MpBase
     public static function hdWithUrl($token,$img_url)
     {
         $url = "https://api.weixin.qq.com/cv/img/superresolution?img_url=".urlencode($img_url)."&access_token=".$token;
-        $response = Api::getCurl($url);
+        $response = Curl::getCurl($url);
         if(!$response){
             return false;
         }
@@ -73,7 +73,7 @@ class Image extends MpBase
             'img'=>new \CURLFile($path)
         ];
 
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
 
         if(!$response){
             return false;
@@ -92,7 +92,7 @@ class Image extends MpBase
     public static function download($token,$media_id,$abs_path,$time_out=2)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$media_id;
-        return Api::downloadCurl($url,$abs_path,$time_out);
+        return Curl::downloadCurl($url,$abs_path,$time_out);
     }
 
     /***
@@ -110,9 +110,9 @@ class Image extends MpBase
             $data = $options;
         }
         if(empty($data)){
-            $response = Api::getCurl($url);
+            $response = Curl::getCurl($url);
         }else{
-            $response = Api::postCurl($data,$url);
+            $response = Curl::postCurl($data,$url);
         }
 
         if(!$response){
@@ -137,7 +137,7 @@ class Image extends MpBase
         if(!empty($options)){
             $data = array_merge($data,$options);
         }
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
         if(!$response){
             return false;
         }

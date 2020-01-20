@@ -6,7 +6,7 @@ namespace Xcrms\Wx;
 
 use Xcrms\Wx\Enums\CurleError;
 
-class Api
+class Curl
 {
     const VERSION = 1.0;
     protected static $logger = NULL;

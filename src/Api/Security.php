@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Xcrms\Wx\Miniprogram;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
-class Security extends MiniBase
+class Security extends Base
 {
     public static function imgSecCheck($token,$path){
         $url = "https://api.weixin.qq.com/wxa/img_sec_check?access_token=".$token;
         $data = [
             'media'=> new \CURLFile($path)
         ];
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
         return json_decode($response,true);
     }
 
@@ -24,7 +24,7 @@ class Security extends MiniBase
             'media_url'=> new \CURLFile($path),
             'media_type'=>$type
         ];
-        $response = Api::uploadCurl($data,$url);
+        $response = Curl::uploadCurl($data,$url);
         return json_decode($response,true);
     }
 
@@ -34,7 +34,7 @@ class Security extends MiniBase
         $data = [
             'content'=>$content
         ];
-        $response = Api::postCurl($data,$url);
+        $response = Curl::postCurl($data,$url);
         return json_decode($response,true);
     }
 }

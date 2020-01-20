@@ -1,15 +1,15 @@
 <?php
 
-namespace Xcrms\Wx\Miniprogram;
+namespace Xcrms\Wx\Api;
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
 /***
  * @todo 消息通知有关
  * Class Message
  * @package Xcrms\Wx\Miniprogram
  */
-class Message extends MiniBase
+class Message extends Base
 {
 
     public static function addTpl($token,$id,$keywods)
@@ -22,7 +22,7 @@ class Message extends MiniBase
             'id'=>$id,
             'keyword_id_list'=>$keywods
         ];
-        $response = Api::postCurl($data, $url);
+        $response = Curl::postCurl($data, $url);
 
         if(!$response){
             return false;
@@ -45,7 +45,7 @@ class Message extends MiniBase
         $data = [
             'template_id'=>$id
         ];
-        $response = Api::postCurl($data, $url);
+        $response = Curl::postCurl($data, $url);
 
         if(!$response){
             return false;
@@ -80,7 +80,7 @@ class Message extends MiniBase
         if(!empty($options['emphasis_keyword'])){
             $data['emphasis_keyword'] = $options['emphasis_keyword'];
         }
-        $response = Api::postCurl($data, $url);
+        $response = Curl::postCurl($data, $url);
 
         if(!$response){
             return false;

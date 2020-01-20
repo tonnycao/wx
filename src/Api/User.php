@@ -1,17 +1,17 @@
 <?php
 
 
-namespace Xcrms\Wx\Miniprogram;
+namespace Xcrms\Wx\Api;
 
 
-use Xcrms\Wx\Api;
+use Xcrms\Wx\Curl;
 
 /***
  * @todo 用户有关
  * Class User
  * @package Xcrms\Wx\Miniprogram
  */
-class User extends MiniBase
+class User extends Base
 {
     /***
      * @todo 获取用户openid
@@ -23,7 +23,7 @@ class User extends MiniBase
     public static function code2Session($appid,$appsecret,$jscode)
     {
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$appsecret."&js_code=".$jscode."&grant_type=authorization_code";
-        $response = Api::getCurl($url);
+        $response = Curl::getCurl($url);
         if(!$response){
             return false;
         }
@@ -49,7 +49,7 @@ class User extends MiniBase
         }elseif(!empty($param['mch_id'])&& !empty($param['out_trade_no'])){
             $url .='&mch_id='.$param['mch_id'].'&out_trade_no='.$param['out_trade_no'];
         }
-        $response = Api::getCurl($url);
+        $response = Curl::getCurl($url);
         if(!$response){
             return false;
         }
